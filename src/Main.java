@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 import java.util.Scanner;
 
 /**
@@ -10,12 +5,7 @@ import java.util.Scanner;
  * @author Ross
  */
 public class Main {
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-
 
         DoctorDetails[] dd = new DoctorDetails[3];
         dd[0] = new DoctorDetails("Test doctor number 1","surname","dep");
@@ -40,50 +30,47 @@ public class Main {
         Scanner s = new Scanner(System.in);
         menuInput=s.nextInt();
 
-        while (menuInput != 3){
+        while (menuInput != 4){
             switch (menuInput){
                 case 1: {
+                    // PD.length = number of patients
+
                     System.out.println("This is the patient screen. \n" +
                             "Please select an option from the list below: \n");
 
-                    int i;
-                    for (i = 0; i < PD.length; i++){
-                        System.out.println("      " + (i + 1) + ") " + PD[i].firstName + " " + PD[i].lastName);
+                    for (int loopCounter = 0; loopCounter < PD.length; loopCounter++){
+                        System.out.println("      " + (loopCounter + 1) + ") " + PD[loopCounter].firstName + " " + PD[loopCounter].lastName);
                     }
 
                     System.out.println(
-                            "      " + (i + 1 ) + ") Display all patients" +
-                            "\n      " + (i + 2 ) + ") Add new patient (dunt work)");
+                            // Concat these to the end of the menu
+                            // TODO - Add new patient
+                            "      " + (PD.length + 1) + ") Display all patients" +
+                            "\n      " + (PD.length + 2 ) + ") Return to menu");
 
-                    menuInput = s.nextInt();
-                    switch (menuInput) {
-                        case 1: {
-                            PD[0].display();
-                            break;
-                        }
-                        case 2: {
-                            PD[1].display();
-                            break;
-                        }
-                        case 3: {
-                            PD[2].display();
-                            break;
-                        }
-                        case 4: {
-                            PD[1].display();
-                            PD[2].display();
-                            PD[3].display();
-                            break;
-                        }
-                        case 5: {
-                            ///PatientDetails PD4 = new PatientDetails();
-                            System.out.println("This screen is still under development please rerun the program");
-                            break;
-                        }
-                    }
+                    do {
+                            menuInput = s.nextInt();
+                            // if input is less than the number of patients get that patient else switch case the other options
+                            if (menuInput <= PD.length && menuInput > 0) PD[menuInput - 1].display();
+                                // other options
+                            else {
+                                if (menuInput == PD.length + 1) {
+                                    // display all
+                                    for (PatientDetails patient : PD) patient.display();
+                                } else if (menuInput == PD.length + 2) {
+                                    // new patient
+                                    System.out.println("This screen is still under development ");
+                                } else if (menuInput == PD.length + 2) {
+                                    break;
+                                } else {
+                                    System.out.println("Not a valid option");
+                                    break;
+                                }
+                            }
+                    } while (menuInput != PD.length + 2);
                 }
                 case 2: {
-
+                    // doctors
                 }
                 case 3: {
                     //nurses
